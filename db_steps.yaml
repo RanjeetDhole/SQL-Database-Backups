@@ -1,0 +1,69 @@
+parameters:
+  - name: repo
+    type: string
+    default: self
+
+  - name: location
+    type: string
+    default: ''
+
+  - name: subscription
+    type: string
+    default: ''
+
+  - name: resourceGroup
+    type: string
+    default: ''
+
+  - name: serverName
+    type: string
+    default: ''
+
+  - name: sqldbName
+    type: string
+    default: ''
+
+  - name: storageKeyType
+    type: string
+    default: ''
+
+  - name: storageKey
+    type: string
+    default: ''
+
+  - name: storageUri
+    type: string
+    default: ''
+
+  - name: adminUser
+    type: string
+    default: ''
+
+  - name: adminPassword
+    type: string
+    default: ''
+    
+  - name: keyVaultName
+    type: string
+    default: ''
+steps:
+  - task: AzureCLI@2
+    displayName: Take SQLDB Bakup
+    inputs:
+      azureSubscription: '${{ parameters.subscription }}'
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: >
+
+        az account set ${{ parameters.subscription }}
+
+
+        az sql db export --server ${{ parameters.serverName }} --name ${{
+        parameters.sqldbName }} --resource-group ${{ parameters.resourceGroup }}
+        --admin-user ${{parameters.adminUser}}  --admin-password
+        ${{parameters.adminPassword}} --storage-key-type ${{
+        parameters.storageKeyType }} --storage-key ${{ parameters.storageKey }}
+        --storage-uri ${{ parameters.storageUri }}  
+      addSpnToEnvironment: true
+      useGlobalConfig: true
+

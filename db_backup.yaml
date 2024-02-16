@@ -1,0 +1,31 @@
+trigger:
+- none
+
+pool:
+  vmImage: "windows-latest"
+stages:
+  - stage: Prod
+    displayName: Prod
+    dependsOn: []
+    jobs:
+      - template: /SpendkeyDevops/devops/jobs/db_jobs.yaml@self
+        parameters:
+          # Common Parameters to all Resources
+          repo: self
+          subscription: TateAndLyle Prod
+          location: East US
+          resourceGroup: rg-east-us-prod-tatenlyle
+          serverName: sqlsrv-east-us-prod-tatenlyle
+          sqldbName: sqldb-eus-prod-tatelyle
+          storageKeyType: StorageAccessKey
+          storageKey: pH2jYZT5iAVPdL1/fH/wzmq07D37fT5cNs6kzkPmT2xRjz03rYs633Q0nAaGKZWE2Ntb7Y5Zo/zX+AStn7Oh2w==
+          # storageUri: https://steastusprodtatenlyle.blob.core.windows.net/dailybackup/myBacpac1.bacpac
+          # storageUri: https://steastusprodtatenlyle.blob.core.windows.net/dailybackup/myBacpac-$(Format-Date -Format "yyyyMMdd")/myBacpac-$(Format-Date -Format "yyyyMMddHHmmss").bacpac
+          # storageUri: https://steastusprodtatenlyle.blob.core.windows.net/dailybackup/myBacpac-$(Format-Date -Format "yyyyMMdd")/myBacpac-$(System.JobId).bacpac
+          # storageUri: https://steastusprodtatenlyle.blob.core.windows.net/dailybackup/myBacpac-$(Format-Date -Format "yyyyMMddHHmmss")-$(System.UniqueId).bacpac
+          storageUri: https://steastusprodtatenlyle.blob.core.windows.net/dailybackup/myBacpac-$(Format-Date -Format "yyyyMMddHHmmss")-$(Build.BuildNumber).bacpac
+          adminUser: CloudSA15463d98
+          adminPassword: 9fd785c61f38431e842d186ee9b6a069S#
+          keyVaultName: kv-eastus-prod-tatenlyle
+
+ 
