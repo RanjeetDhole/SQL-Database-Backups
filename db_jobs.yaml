@@ -52,7 +52,7 @@ jobs:
     displayName: DQLDB Backup
     steps:
       - checkout: '${{ parameters.repo }}'
-      - template: '/SpendkeyDevops/devops/steps/db_steps.yaml@${{ parameters.repo }}'
+      - template: '/devopss/devops/steps/db_steps.yaml@${{ parameters.repo }}'
         parameters:
           repo: '${{ parameters.repo }}'
           subscription: '${{ parameters.subscription }}'
